@@ -21,8 +21,8 @@ public class Mover{
   public void update(){
     velocity.add(acceleration);
     location.add(velocity);
-    acceleration.limit(4);
-    acceleration.mult(-0.5);
+    velocity.limit(5);
+    acceleration.mult(0);
   }
   
   public void edges(){
@@ -51,7 +51,7 @@ public class Mover{
     stroke(255);
     strokeWeight(2);
     fill(127);
-    ellipse(location.x, location.y, mass*5, mass*5);
+    ellipse(location.x, location.y, mass*10, mass*10);
   }
   
 }

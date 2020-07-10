@@ -9,7 +9,7 @@ void setup(){
   size(1000,1000);
   frameRate(60);
   world = new World();
-  world.addMovers(300);
+  world.addMovers(500);
 }
 
 void draw(){

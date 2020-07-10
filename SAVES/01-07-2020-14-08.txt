@@ -1,0 +1,137 @@
+
+Scene scene;
+
+void setup()
+{
+    size(1000,1000);
+    background(0);
+    scene = new Scene();
+    scene.updateRectR(new RectR(width/2,height/2,"a"));
+    frameRate(10);
+}
+
+void draw()
+{
+  createRectR(scene.rectR, scene).draw();
+}
+
+
+
+
+ public boolean rchoice(){
+        return (int(random(2)) == 0) ? true : false;
+    }
+
+public class Scene
+{
+    public RectR rectR;
+
+    public void updateRectR(RectR r)
+    {
+        rectR = r;
+    }
+    
+}
+
+RectR createRectR(RectR pR, Scene scene){
+  
+    int nx, ny;
+    int largeur, hauteur;
+    HashMap<Integer,Integer> posList = new HashMap<Integer,Integer>();
+    int tx, ty;
+    
+    int posvPossible = 0;
+    
+    if(pR.type.equals("A"))
+    {
+      largeur = 10;
+      hauteur = 30;
+      
+    }else{
+      largeur = 30;
+      hauteur = 10;
+    }
+    
+   
+    posList.put(pR.x+pR.largeur, pR.y);
+    posList.put(pR.x-largeur,pR.y);
+    posList.put(pR.x+pR.largeur,(pR.y+pR.hauteur)-hauteur);
+    posList.put(pR.x-largeur,(pR.y+pR.hauteur)-hauteur);
+    
+    for(HashMap.Entry<Integer,Integer> v: posList.entrySet())
+    {  
+      int x = v.getKey();
+      int y = v.getValue();
+      int del = 0;
+      
+      if(!(x+largeur <= 1000 && x+largeur >= 0))
+      {
+        posList.remove(x,y);
+        del = 1;
+      }
+      if(!(y+hauteur <= 1000 && y+hauteur >= 0))
+      {
+        posList.remove(x,y);
+        del = 1;
+      }
+      
+      
+    }
+    int[][] vPossible = new int[posList.size()][2];
+    
+    for(HashMap.Entry<Integer,Integer> v: posList.entrySet())
+    {
+        int x = v.getKey();
+        int y = v.getValue();
+        vPossible[posvPossible][0] = x;
+        vPossible[posvPossible][1] = y;
+        posvPossible++;
+
+    }
+    
+    int alea = int(random(vPossible.length));
+    RectR r;
+    
+    if(pR.type.equals("A"))
+    {
+      
+      r = new RectR(vPossible[alea][0], vPossible[alea][1], 'b');
+      scene.updateRectR(r);
+      return r;
+  
+    }else{
+      r = new RectR(vPossible[alea][0], vPossible[alea][1], "a");
+      return r;
+    }
+    
+    
+}
+
+public class RectR{
+  
+    public int x, y;
+    public int largeur, hauteur;
+    public String type;
+
+    public RectR(int x, int y, String a){
+        this.x = x;
+        this.y = y;
+        largeur = 30;
+        hauteur = 10;
+        type = "A";
+    }
+    
+    public RectR(int x, int y, char b){
+        this.x = x;
+        this.y = y;
+        largeur = 10;
+        hauteur = 30;
+        type = "B";
+    }
+    
+    public void draw(){
+        fill(255);
+        rect(x,y,largeur,hauteur);
+    }
+
+}

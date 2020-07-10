@@ -1,0 +1,126 @@
+Scene scene;
+
+void setup()
+{
+    size(1000,1000);
+    background(0);
+    scene = new Scene();
+    scene.updateRectR(new RectA(width/2,height/2));
+    frameRate(10);
+}
+
+void draw()
+{
+  createRectR(scene.rectR, scene).draw();
+}
+
+ public boolean rchoice(){
+        return (int(random(2)) == 0) ? true : false;
+}
+
+Rectangle createRectR(Rectangle pR, Scene scene){
+  
+    int nx = 400, ny = 400;
+    int largeur, hauteur;
+    
+    if(pR.type.equals("A"))
+    {
+      largeur = 10;
+      hauteur = 30;
+      
+    }else{
+      largeur = 30;
+      hauteur = 10;
+    }
+    
+    
+    boolean ok = true;
+    
+    while(ok == true){
+      int ran = int(random(4));
+      switch(ran){
+        case 0:
+          nx = pR.x+pR.largeur;
+          ny = pR.y;
+          break;
+        case 1:
+          nx = pR.x-largeur;
+          ny = pR.y;
+          break;
+        case 2:
+          nx = pR.x+pR.largeur;
+          ny = (pR.y+pR.hauteur)-hauteur;
+          break;
+        case 3:
+          nx = pR.x-largeur;
+          ny = (pR.y+pR.hauteur)-hauteur;
+          break;
+      }
+      
+      if((nx <= width && nx >= 0) && (ny <= height && ny >= 0)){
+        ok = false;
+      }else{
+        ok = true;
+      }
+    }
+    
+    Rectangle r;
+    
+    if(pR.type.equals("A"))
+    {
+      r = new RectB(nx, ny);
+      scene.updateRectR(r);
+      return r;
+    }else{
+      r = new RectA(nx, ny);
+      scene.updateRectR(r);
+      return r;
+    }
+}
+
+public class Scene
+{
+    public Rectangle rectR;
+
+    public void updateRectR(Rectangle r)
+    {
+        rectR = r;
+    }
+}
+
+public class Rectangle
+{
+  public int x, y;
+  public int largeur, hauteur;
+  public String type;
+
+  public Rectangle(int x, int y,int largeur, int hauteur, String type)
+  {
+      this.x = x;
+      this.y = y;
+      this.largeur = largeur;
+      this.hauteur = hauteur;
+      this.type = type;
+  }
+  
+  public void draw()
+  {
+        //fill(196, 196, 196, 20);
+        fill(196, 4, 4,50);
+        rect(x,y,largeur,hauteur);
+    }
+}
+
+public class RectA extends Rectangle
+{
+    public RectA(int x, int y){
+      super(x,y,30,10,"A");
+    }
+}
+
+public class RectB extends Rectangle
+{
+    public RectB(int x, int y){
+      super(x,y,10,30,"B");
+    }
+}

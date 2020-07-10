@@ -1,0 +1,35 @@
+float a=0.0; 
+ 
+void setup() {  
+  size(1200, 800); 
+  smooth();
+  rectMode(CENTER);
+}
+ 
+void draw() {
+ 
+  //Draw screen
+  background(255);
+  line(width/2, 0, width/2, height);
+  line(0, height/2, width, height/2);
+ 
+  //First Square
+  pushMatrix();
+  fill(0);
+  translate(width/2, height/2);
+  translate(-300, 60);
+  rotate(a);  
+  rect(0, 0, 120, 120, 25);
+  popMatrix();
+ 
+  //Second Square
+  pushMatrix();
+  fill(200);
+  translate(width/2, height/2);
+  translate(300, 60);
+  rotate(a);  
+  rect(0, 0, 120, 120, 25);
+  popMatrix();
+ 
+  a+=.01;
+}

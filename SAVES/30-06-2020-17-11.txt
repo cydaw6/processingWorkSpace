@@ -1,0 +1,33 @@
+int x=0;
+float r = 0.0;
+
+void setup()
+{
+  size(1000,1000);
+  background(0);
+  frameRate(1000);
+  rectMode(CENTER);
+
+}
+
+void draw()
+{
+ 
+
+  
+  
+  int points = 100; //number of points
+  float pointAngle = 360/points; //angle between points
+  int radius = 100;
+  for(float angle = 270; angle < 630; angle = angle+pointAngle) { 
+    float x = cos(radians(angle)) * radius; 
+    float y = sin(radians(angle)) * radius;
+    stroke(255);
+     translate(width/2, height/2);
+  translate(300, 60);
+  rotate(r); 
+    point(x+(width/2), y+(height/2));
+    //line(x+300, y+300, 300, 300); 
+  }
+  r+=0.1;
+}

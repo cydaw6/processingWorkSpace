@@ -1,0 +1,96 @@
+
+Scene scene;
+
+void setup()
+{
+    size(1000,1000);
+    background(0);
+    scene = new Scene();
+    scene.updateRectR(new RectR(width/2,height/2,"a"));
+    frameRate(10);
+}
+
+void draw()
+{
+  createRectR(scene.rectR, scene).draw();
+}
+
+
+
+
+ public boolean rchoice(){
+        return (int(random(2)) == 0) ? true : false;
+    }
+
+public class Scene
+{
+    public RectR rectR;
+
+    public void updateRectR(RectR r)
+    {
+        rectR = r;
+    }
+    
+}
+
+RectR createRectR(RectR pR, Scene scene){
+        int nx, ny;
+        
+        int largeur, hauteur;
+        if(pR.type.equals("A")){
+            largeur = 10;
+            hauteur = 30;
+            if(rchoice() && (pR.x + pR.largeur) <= width && (pR.x + pR.largeur) >= 0){
+                nx = pR.x + pR.largeur;
+                ny = pR.y;
+            }else{
+                nx = pR.x + pR.largeur;
+                ny = (pR.y + pR.hauteur) - hauteur;
+            }
+            RectR nr = new RectR(nx,ny, 'b');
+            scene.updateRectR(nr);
+            return nr;
+        }else{
+          largeur = 30;
+            hauteur = 10;
+            if(rchoice() && (pR.y + pR.hauteur) <= height && (pR.y + pR.hauteur) >= 0)
+            {
+                nx = pR.x + pR.largeur;
+                ny = pR.y + pR.hauteur;
+            }else{
+                nx = pR.x + pR.largeur;
+                ny = pR.y;
+            }
+            RectR nr = new RectR(nx,ny, "a");
+            scene.updateRectR(nr);
+            return nr;
+        }
+    }
+
+    public class RectR{
+        public int x, y;
+        public int largeur, hauteur;
+        public String type;
+
+    public RectR(int x, int y, String a){
+        this.x = x;
+        this.y = y;
+        largeur = 30;
+        hauteur = 10;
+        type = "A";
+    }
+
+    public RectR(int x, int y, char b){
+        this.x = x;
+        this.y = y;
+        largeur = 10;
+        hauteur = 30;
+        type = "B";
+    }
+    
+    public void draw(){
+        fill(255);
+        rect(x,y,largeur,hauteur);
+    }
+
+}

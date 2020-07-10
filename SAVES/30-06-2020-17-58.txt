@@ -1,0 +1,59 @@
+// GLOBAL VARIABLES
+final int SUN_DIAMETER = 150;
+final int NUMBER_OF_RAYS = 100;
+float angle = TWO_PI/NUMBER_OF_RAYS;
+float RING_OF_LINES = SUN_DIAMETER*.5;
+ArrayList<Line> lineList;
+
+
+void setup() {
+  size(1000, 1000);
+  frameRate(60);
+  lineList = new ArrayList<Line>();
+  
+  for (int i = 0; i < NUMBER_OF_RAYS; i++) {
+    //random(255),random(255),random(255)
+    lineList.add(new Line(RING_OF_LINES-55,RING_OF_LINES+1000));
+  }
+  
+}
+
+void draw() {
+  background(0);
+  translate(width/2, height/2);
+  int i = 0;
+  for (Line l: lineList) {
+    //random(255),random(255),random(255)
+    stroke(255);
+    pushMatrix();
+    rotate(angle +i*TWO_PI/NUMBER_OF_RAYS);
+    strokeWeight(3);
+    l.draw();
+    popMatrix();
+    i++;
+    
+    
+  }
+  
+  pushMatrix();
+    rotate(angle +i*TWO_PI/NUMBER_OF_RAYS);
+    strokeWeight(3);
+    circle(300,300,20);
+    popMatrix();
+  angle += .01;
+}
+
+class Line{
+  private float x1;
+  private float x2;
+  
+  public Line(float x1, float x2){
+  this.x1 = x1;
+  this.x2 = x2;
+  }
+  
+  public void draw(){
+    line(x1, 0, x2, 0);
+  }
+  
+}
